@@ -17,3 +17,9 @@ The framework is designed around a <strong>DispatcherServlet</strong> that handl
 <li>The <strong>DispatcherServlet</strong> will take help from <strong>ViewResolver</strong> to pickup the defined view for the request.</li>
 <li>The <strong>DispatcherServlet</strong> passes the model data to the <strong>view</strong> which is finally rendered on the browser.</li>
 </ul>
+
+The files that we must configure in the application are the <strong>web.xml</strong> file and the <strong>mvc-dispatcher-servlet.xml</strong> file.
+
+The web.xml file is the file that defines everything about the application that a server needs to know. It is placed in the /WEB-INF/ directory of the application. The <strong>&lt;servlet&gt;</strong> element declares the <strong>DispatcherServlet</strong>. When the <strong>DispatcherServlet</strong> is initialized, the framework will try to load the application context from a file named <strong>[servlet-name]-servlet.xml</strong> located in /WEB-INF/ directory. So, we have created a file named <strong>mvc-dispatcher-servlet.xml</strong> which is placed in WebContent/WEB-INF directory. The <strong>&lt;servlet-mapping&gt;</strong> element of web.xml file specifies what URLs will be handled by the <strong>DispatcherServlet</strong>.
+
+In <strong>[servlet-name]-servlet.xml</strong>. The <strong>org.springframework.web.servlet.view.InternalResourceViewResolver</strong> bean is used as internal resource views resolver, meaning that it will find the jsp and html files in the WebContent/WEB-INF/ folder. We can also set properties such as <strong>prefix</strong> or <strong>suffix</strong> to the view name to generate the final view page URL. This is the file where all beans created, such as Controllers.
