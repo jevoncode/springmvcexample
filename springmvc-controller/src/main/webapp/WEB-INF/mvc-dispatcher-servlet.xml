@@ -1,0 +1,85 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/WEB-INF/view/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	<!-- corresponding url:http://localhost:8080/helloworld/hello.htm
+						   http://localhost:8080/helloworld/goodBye.htm 
+
+	<bean class="com.jevoncode.springmvcexample.controller.HelloWorldController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+			</bean>
+		</property>
+	</bean>
+	-->
+	
+	<!--http://localhost:8080/helloworld/hello.htm corresponding jcHelloMessage() method.
+		http://localhost:8080/helloworld/goodBye.htm corresponding jcGoodByeMessage() method.
+
+	<bean class="com.jevoncode.springmvcexample.controller.HelloWorldController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+				   <property name="prefix" value="jc" />
+               	   <property name="suffix" value="Message" />  
+			</bean>
+		</property>
+	</bean>
+	-->
+	
+	<!-- corresponding url:http://localhost:8080/helloworld/anythinghere.htm?action=hello
+						   http://localhost:8080/helloworld/anythinghere.htm?action=goodBye 
+
+	<bean class="com.jevoncode.springmvcexample.controller.HelloWorldController">
+		<property name="methodNameResolver">
+			<bean class="org.springframework.web.servlet.mvc.multiaction.ParameterMethodNameResolver">
+                <property name="paramName" value="action" />
+            </bean>
+        </property>
+    </bean>
+    -->
+    <!-- corresponding url:http://localhost:8080/helloworld/hello.htm
+    					   http://localhost:8080/helloworld/goodBye.htm
+    <bean class="com.jevoncode.springmvcexample.controller.HelloWorldController">
+	 	<property name="methodNameResolver">
+    		<bean class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+      		<property name="mappings">
+				<props>
+	   			<prop key="/helloworld/hello.htm">hello</prop>
+	   			<prop key="/helloworld/goodBye.htm">goodBye</prop>
+				</props>
+       		</property>
+     		</bean>
+   		</property>
+	</bean>
+     -->
+     
+    <!-- Making use of annotation -->
+    <context:component-scan base-package="com.jevoncode.springmvcexample.controller" />
+    
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/hello.htm">helloController</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- ParameterizableViewController offers an alternative to sending a request straight to a view such as a JSP -->
+	<bean name="helloController"
+		class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="page" />
+	</bean>
+    
+</beans>
